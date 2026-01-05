@@ -13,7 +13,7 @@ Modifique la primera parte del script donde se están declarando los niveles de 
 Si no hay niveles de tiempo diferentes para los dominicales, cambiar el ? por NULL en @dd y @dn. En caso que exista el @dd pero no @dn, deberá indicar el nivel de tiempo que corresponda a @dd, pero el @dn no puede dejarlo en NULL, lo puede reemplazar por el mismo KeyLevel de @fn  
 ## 4️⃣ Ejecute el script y luego revise dos o tres políticas para comprobar que los cambios se aplicaron correctamente
 ---
-~~~sql
+~~~tsql
 USE TASTD
 
 -- Declara las variables, debe ingresar el id del nivel de tiempo antes de ejecutar el script
