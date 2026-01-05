@@ -14,7 +14,7 @@ Si no hay niveles de tiempo diferente para los domincales cambiar el ? por NULL 
 ## 4️⃣ Ejecute el script y luego revise dos o tres políticas para comprobar que los cambios se aplicaron correctamente
 ---
 ~~~sql
-USE TASTD_DECOR
+USE TASTD
 
 -- Declara las variables, debe ingresar el id del nivel de tiempo antes de ejecutar el script
 DECLARE 
