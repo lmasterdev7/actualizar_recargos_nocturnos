@@ -5,26 +5,26 @@ USE TASTD_DECOR
 
 -- Declara las variables, debe ingresar el id del nivel de tiempo antes de ejecutar el script
 DECLARE 
-	@hdo	INT = 1,
-	@rn		INT = 4,
-	@hed	INT = 2,
-	@hen	INT = 3,
-	@fd		INT = 5,
-	@fn		INT = 6,
-	@hefd	INT = 8,
-	@hefn	INT = 9,
-	@dd		INT = NULL,
-	@dn		INT = NULL,
+  @hdo  INT = 1,
+  @rn   INT = 4,
+  @hed  INT = 2,
+  @hen  INT = 3,
+  @fd   INT = 5,
+  @fn   INT = 6,
+  @hefd INT = 8,
+  @hefn INT = 9,
+  @dd   INT = NULL,
+  @dn   INT = NULL,
 
-	@KeyPolicy INT,
-	@Shift INT,
-	@ShiftDescription VARCHAR(100),
-	@Start INT,
-	@Start_Keylevel INT,
-	@Finish INT,
-	@Finish_Keylevel INT,
-	@Limit INT,
-	@Lunch INT;
+  @KeyPolicy INT,
+  @Shift INT,
+  @ShiftDescription VARCHAR(100),
+  @Start INT,
+  @Start_Keylevel INT,
+  @Finish INT,
+  @Finish_Keylevel INT,
+  @Limit INT,
+  @Lunch INT;
 
 /*********************************************************************************************************/
 -- 1. Actualiza todos los puntos amarillos que se encuentran en las 21:00 hacia 19:00 Si son RN, FN y DN
