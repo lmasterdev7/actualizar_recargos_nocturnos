@@ -4,7 +4,7 @@
 Antes de ejecutar el script siga las intrucciones preliminares:
 ## 1️⃣ Realice una copia de seguridad de la base de datos
 ## 2️⃣ Consulte los niveles de tiempo,
-Abra SQL Managment Studio luego y ejecute la siguiente consulta para obtener los KeyLevel de los niveles de tiempo:
+Abra SQL Server Management Studio luego y ejecute la siguiente consulta para obtener los KeyLevel de los niveles de tiempo:
 ```sql
 SELECT KeyLevel, Code, Description FROM catTimeLevels
 ```
