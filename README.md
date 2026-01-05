@@ -1,20 +1,31 @@
-# Actualizar Recargos Nocturnos para el año 2026
+# ⭐⭐⭐ Actualizar Recargos Nocturnos para el año 2026 ⭐⭐⭐
+**El objetivo de este script es actualizar los recargos automáticamente y en segundos desde la base de datos, se configuró para abarcar al mayor número de empresas posible, y las configuraciones más comunes del Nomiplus para los clientes de Ingecon Group SAS**
 
+Antes de ejecutar el script siga las intrucciones preliminares:
+## 1️⃣ Realice una copia de seguridad de la base de datos
+## 2️⃣ Consulte los niveles de tiempo de Nomiplus desde el SQL Managment Studio luego,
+```sql
+SELECT * FROM catTimeLevels
+```
+Modifique la primera parte del script donde se están declarando los niveles de tiempo y cambie el "?" por el KeyLevel que corresponda
+## 3️⃣ Si no hay niveles de tiempo diferente para los domincales cambiar el ? por NULL en @dd y @dn. En caso que exista el @dd pero no @dn, deberá indicar el nivel de tiempo que corresponda a @dd, pero el @dn no puede dejarlo en NULL, lo puede reemplazar por el mismo KeyLevel de @fn  
+## 4️⃣ Ejecute el script y luego revise dos o tres políticas para comprobar que los cambios se aplicaron correctamente
+---
 ~~~sql
 USE TASTD_DECOR
 
 -- Declara las variables, debe ingresar el id del nivel de tiempo antes de ejecutar el script
 DECLARE 
-  @hdo  INT = 1,
-  @rn   INT = 4,
-  @hed  INT = 2,
-  @hen  INT = 3,
-  @fd   INT = 5,
-  @fn   INT = 6,
-  @hefd INT = 8,
-  @hefn INT = 9,
-  @dd   INT = NULL,
-  @dn   INT = NULL,
+  @hdo  INT = ?,
+  @rn   INT = ?,
+  @hed  INT = ?,
+  @hen  INT = ?,
+  @fd   INT = ?,
+  @fn   INT = ?,
+  @hefd INT = ?,
+  @hefn INT = ?,
+  @dd   INT = ?,
+  @dn   INT = ?,
 
   @KeyPolicy INT,
   @Shift INT,
