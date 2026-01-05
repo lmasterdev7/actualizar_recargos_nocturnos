@@ -17,6 +17,7 @@ Si no hay niveles de tiempo diferentes para los dominicales, cambiar el ? por NU
 USE TASTD
 
 -- Declara las variables, debe ingresar el id del nivel de tiempo antes de ejecutar el script
+
 DECLARE 
   @hdo  INT = ?,
   @rn   INT = ?,
@@ -41,6 +42,7 @@ DECLARE
 
 /*********************************************************************************************************/
 -- 1. Actualiza todos los puntos amarillos que se encuentran en las 21:00 hacia 19:00 Si son RN, FN y DN
+
 BEGIN
   UPDATE p
     SET p.ExpectedTime=1140
@@ -53,6 +55,7 @@ END
 
 /*********************************************************************************************************/
 -- 2. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en marcaciones de entrada que van de 19:00 - 20:59
+
 BEGIN
   UPDATE detShiftsPairs 
     SET KeyLevel=@rn
@@ -88,6 +91,7 @@ END
 
 /*********************************************************************************************************/
 -- 3. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en marcaciones de salida que van de 19:00 - 20:59
+
 BEGIN
   UPDATE detShiftsPairs 
     SET KeyLevel=@rn
@@ -121,6 +125,7 @@ END
 
 /*********************************************************************************************************/
 -- 4. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en puntos amarillos que van de 19:00 - 20:59
+
 BEGIN
   UPDATE detShiftsPairs 
     SET KeyLevel=@rn
@@ -152,6 +157,7 @@ BEGIN
 END
 /*********************************************************************************************************/
 -- 5. Cuando no exista una marcación a las 19:00, se agregará una con el nivel de tiempo que corresponda
+
 BEGIN
   DECLARE cursor_origen CURSOR LOCAL FAST_FORWARD FOR
     SELECT DISTINCT  s.KeyPolicy, s.Shift, s.ShiftDescription, s.Start, st.start_keylevel, s.Finish, fn.finish_keylevel, IIF(l.Limit>0, l.Limit, 0) AS Limit, IIF(c.Lunch>0, c.Lunch, 0) AS Lunch
@@ -182,39 +188,39 @@ FETCH NEXT FROM cursor_origen INTO @KeyPolicy, @Shift, @ShiftDescription, @Start
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-	-- Insertar HEN
-	IF @Start_Keylevel IN (@hed, @rn) OR (@Finish_Keylevel=@hed AND @Finish<1140) OR (@Start_Keylevel=@hdo AND (@Start+@limit+@lunch < 1140))
-	BEGIN
-		INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hen, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-	END
-	-- Insertar HEFN
-	ELSE IF @Start_Keylevel IN (@hefd, @fn) OR (@Finish_Keylevel=@hefd AND @Finish<1140) OR (@Start_Keylevel=@fd AND (@Start+@limit+@lunch < 1140))
-	BEGIN
-		INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hefn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-	END
-	-- Insertar FN
-	ELSE IF @Start_Keylevel IN (@fn, @fd) AND @Start+@limit+@lunch > 1140 
-	BEGIN
-		INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @fn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-	END
-	-- Insertar DN
-	ELSE IF @Start_Keylevel IN (@dn, @dd) AND @Start+@limit+@lunch > 1140 
-	BEGIN
-		INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @dn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-	END
-	-- Insertar RN
-	ELSE
-	BEGIN
-	INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @rn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-	END
+  -- Insertar HEN
+    IF @Start_Keylevel IN (@hed, @rn) OR (@Finish_Keylevel=@hed AND @Finish<1140) OR (@Start_Keylevel=@hdo AND (@Start+@limit+@lunch < 1140))
+    BEGIN
+      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hen, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+    END
+  -- Insertar HEFN
+    ELSE IF @Start_Keylevel IN (@hefd, @fn) OR (@Finish_Keylevel=@hefd AND @Finish<1140) OR (@Start_Keylevel=@fd AND (@Start+@limit+@lunch < 1140))
+    BEGIN
+      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hefn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+    END
+  -- Insertar FN
+    ELSE IF @Start_Keylevel IN (@fn, @fd) AND @Start+@limit+@lunch > 1140 
+    BEGIN
+      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @fn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+    END
+  -- Insertar DN
+    ELSE IF @Start_Keylevel IN (@dn, @dd) AND @Start+@limit+@lunch > 1140 
+    BEGIN
+      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @dn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+    END
+  -- Insertar RN
+    ELSE
+    BEGIN
+      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @rn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+    END
 
-	FETCH NEXT FROM cursor_origen
-	INTO @KeyPolicy, @Shift, @ShiftDescription, @Start, @Start_Keylevel, @Finish, @Finish_Keylevel, @Limit, @Lunch;
+FETCH NEXT FROM cursor_origen
+INTO @KeyPolicy, @Shift, @ShiftDescription, @Start, @Start_Keylevel, @Finish, @Finish_Keylevel, @Limit, @Lunch;
 
-	END
+END
 
-	CLOSE cursor_origen
-	DEALLOCATE cursor_origen
+CLOSE cursor_origen
+DEALLOCATE cursor_origen
 
 END
 ~~~
