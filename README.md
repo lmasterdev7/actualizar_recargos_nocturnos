@@ -43,11 +43,11 @@ DECLARE
 -- 1. Actualiza todos los puntos amarillos que se encuentran en las 21:00 hacia 19:00 Si son RN, FN y DN
 BEGIN
 UPDATE p
-	SET p.ExpectedTime=1140
-		FROM detShiftsPairs p
-			LEFT JOIN detShifts s ON p.KeyPolicy=s.KeyPolicy AND p.Shift = s.Shift
-				WHERE p.ExpectedTime=1260 AND p.KeyLevel IN (@rn, @fn, @dn) 
-					AND p.IsSystem=0  AND s.Start NOT IN (1140) AND s.Finish NOT IN (1140);
+  SET p.ExpectedTime=1140
+    FROM detShiftsPairs p
+      LEFT JOIN detShifts s ON p.KeyPolicy=s.KeyPolicy AND p.Shift = s.Shift
+        WHERE p.ExpectedTime=1260 AND p.KeyLevel IN (@rn, @fn, @dn) 
+          AND p.IsSystem=0  AND s.Start NOT IN (1140) AND s.Finish NOT IN (1140);
 END
 
 
@@ -55,33 +55,33 @@ END
 -- 2. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en marcaciones de entrada que van de 19:00 - 20:59
 BEGIN
 UPDATE detShiftsPairs 
-	SET KeyLevel=@rn
-		WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel= @hdo;
+  SET KeyLevel=@rn
+    WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel= @hdo;
 END
 
 BEGIN
 UPDATE detShiftsPairs 
-	SET KeyLevel=@hen
-		WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel= @hed;
+  SET KeyLevel=@hen
+    WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel= @hed;
 END
 
 
 BEGIN
 UPDATE detShiftsPairs 
-	SET KeyLevel=@fn
-		WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@fd;
+  SET KeyLevel=@fn
+    WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@fd;
 END
 
 BEGIN
 UPDATE detShiftsPairs 
-	SET KeyLevel=@dn
-		WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@dd;
+  SET KeyLevel=@dn
+    WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@dd;
 END
 
 BEGIN
 UPDATE detShiftsPairs 
-	SET KeyLevel=@hefn
-		WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel= @hefd;
+  SET KeyLevel=@hefn
+    WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel= @hefd;
 END
 
 
@@ -90,65 +90,65 @@ END
 -- 3. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en marcaciones de salida que van de 19:00 - 20:59
 BEGIN
 UPDATE detShiftsPairs 
-	SET KeyLevel=@rn
-		WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hdo;
+  SET KeyLevel=@rn
+    WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hdo;
 END
 
 BEGIN
 UPDATE detShiftsPairs 
-	SET KeyLevel=@hen
-		WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hed;
+  SET KeyLevel=@hen
+    WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hed;
 END
 
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@fn
-		WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@fd;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@fn
+      WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@fd;
 END
 
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@dn
-		WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@dd;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@dn
+      WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@dd;
 END
 
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@hefn
-		WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hefd;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@hefn
+      WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hefd;
 END
 
 
 /*********************************************************************************************************/
 -- 4. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en puntos amarillos que van de 19:00 - 20:59
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@rn
-		WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hdo;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@rn
+      WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hdo;
 END
 
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@hen
-		WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hed;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@hen
+      WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hed;
 END
 
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@fn
-		WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@fd;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@fn
+      WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@fd;
 END
 
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@dn
-		WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@dd;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@dn
+      WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@dd;
 END
 
 BEGIN
-UPDATE detShiftsPairs 
-	SET KeyLevel=@hefn
-		WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hefd;
+  UPDATE detShiftsPairs 
+    SET KeyLevel=@hefn
+      WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hefd;
 END
 /*********************************************************************************************************/
 -- Cuando no exista una marcación a las 19:00, se agregará una con el nivel de tiempo que corresponda
