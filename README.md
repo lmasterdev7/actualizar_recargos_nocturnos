@@ -1,4 +1,4 @@
-# ⭐⭐⭐ Actualizar Recargos Nocturnos para el año 2026 ⭐⭐⭐
+# ⭐ Actualizar Recargos Nocturnos para el año 2026 ⭐
 **El objetivo de este script es actualizar los recargos automáticamente y en segundos desde la base de datos, se configuró para abarcar al mayor número de empresas posible, y las configuraciones más comunes del Nomiplus para los clientes de Ingecon Group SAS**
 
 Antes de ejecutar el script siga las intrucciones preliminares:
