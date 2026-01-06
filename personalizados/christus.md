@@ -1,4 +1,4 @@
-# Script personalizado, aplica solo para Christus
+# Solo para Christus
 El siguiente script está adaptado a Christus Clínica Palma Real, si va a usarlo en Farallones debe revisar los keylevel que tienen configurados y editar el script y asignarle los nuevos valores,
 ```tsql
 --Declara las variables, debe ingresar el id del nivel de tiempo antes de ejecutar el script
