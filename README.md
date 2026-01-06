@@ -183,44 +183,44 @@ BEGIN
                 FROM detShiftsPairs x
                   WHERE x.KeyPolicy=s.KeyPolicy AND x.Shift= s.Shift AND x.ExpectedTime=1140);
 
-OPEN cursor_origen;
-FETCH NEXT FROM cursor_origen INTO @KeyPolicy, @Shift, @ShiftDescription, @Start, @Start_Keylevel, @Finish, @Finish_Keylevel, @Limit, @Lunch;
+  OPEN cursor_origen;
+  FETCH NEXT FROM cursor_origen INTO @KeyPolicy, @Shift, @ShiftDescription, @Start, @Start_Keylevel, @Finish, @Finish_Keylevel, @Limit, @Lunch;
 
-WHILE @@FETCH_STATUS = 0
-BEGIN
-  -- Insertar HEN
-    IF @Start_Keylevel IN (@hed, @rn) OR (@Finish_Keylevel=@hed AND @Finish<1140) OR (@Start_Keylevel=@hdo AND (@Start+@limit+@lunch < 1140))
-    BEGIN
-      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hen, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-    END
-  -- Insertar HEFN
-    ELSE IF @Start_Keylevel IN (@hefd, @fn) OR (@Finish_Keylevel=@hefd AND @Finish<1140) OR (@Start_Keylevel=@fd AND (@Start+@limit+@lunch < 1140))
-    BEGIN
-      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hefn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-    END
-  -- Insertar FN
-    ELSE IF @Start_Keylevel IN (@fn, @fd) AND @Start+@limit+@lunch > 1140 
-    BEGIN
-      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @fn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-    END
-  -- Insertar DN
-    ELSE IF @Start_Keylevel IN (@dn, @dd) AND @Start+@limit+@lunch > 1140 
-    BEGIN
-      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @dn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-    END
-  -- Insertar RN
-    ELSE
-    BEGIN
-      INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @rn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
-    END
+  WHILE @@FETCH_STATUS = 0
+  BEGIN
+    -- Insertar HEN
+      IF @Start_Keylevel IN (@hed, @rn) OR (@Finish_Keylevel=@hed AND @Finish<1140) OR (@Start_Keylevel=@hdo AND (@Start+@limit+@lunch < 1140))
+      BEGIN
+        INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hen, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+      END
+    -- Insertar HEFN
+      ELSE IF @Start_Keylevel IN (@hefd, @fn) OR (@Finish_Keylevel=@hefd AND @Finish<1140) OR (@Start_Keylevel=@fd AND (@Start+@limit+@lunch < 1140))
+      BEGIN
+        INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @hefn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+      END
+    -- Insertar FN
+      ELSE IF @Start_Keylevel IN (@fn, @fd) AND @Start+@limit+@lunch > 1140 
+      BEGIN
+        INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @fn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+      END
+    -- Insertar DN
+      ELSE IF @Start_Keylevel IN (@dn, @dd) AND @Start+@limit+@lunch > 1140 
+      BEGIN
+        INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @dn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+      END
+    -- Insertar RN
+      ELSE
+      BEGIN
+        INSERT INTO detShiftsPairs VALUES (@KeyPolicy, @Shift, 1140, 1, @rn, 0, 15, 15, 15 , 15, 30, 30, 0, 1)
+      END
 
-FETCH NEXT FROM cursor_origen
-INTO @KeyPolicy, @Shift, @ShiftDescription, @Start, @Start_Keylevel, @Finish, @Finish_Keylevel, @Limit, @Lunch;
+  FETCH NEXT FROM cursor_origen
+  INTO @KeyPolicy, @Shift, @ShiftDescription, @Start, @Start_Keylevel, @Finish, @Finish_Keylevel, @Limit, @Lunch;
 
-END
+  END
 
-CLOSE cursor_origen
-DEALLOCATE cursor_origen
+  CLOSE cursor_origen
+  DEALLOCATE cursor_origen
 
 END
 ~~~
