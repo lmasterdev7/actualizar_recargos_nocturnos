@@ -52,7 +52,6 @@ BEGIN
             AND p.IsSystem=0  AND s.Start NOT IN (1140) AND s.Finish NOT IN (1140);
 END
 
-
 /*********************************************************************************************************/
 -- 2. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en marcaciones de entrada que van de 19:00 - 20:59
 
@@ -87,8 +86,6 @@ BEGIN
       WHERE IsSystem=1 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel= @hefd;
 END
 
-
-
 /*********************************************************************************************************/
 -- 3. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en marcaciones de salida que van de 19:00 - 20:59
 
@@ -122,7 +119,6 @@ BEGIN
       WHERE IsSystem=2 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hefd;
 END
 
-
 /*********************************************************************************************************/
 -- 4. Actualiza HDO->RN, HED->HEN, FD->FN, DD->DN y HEFD->HEFN en puntos amarillos que van de 19:00 - 20:59
 
@@ -155,6 +151,7 @@ BEGIN
     SET KeyLevel=@hefn
       WHERE IsSystem=0 AND ExpectedTime BETWEEN 1140 AND 1259 AND keylevel=@hefd;
 END
+
 /*********************************************************************************************************/
 -- 5. Cuando no exista una marcación a las 19:00, se agregará una con el nivel de tiempo que corresponda
 
